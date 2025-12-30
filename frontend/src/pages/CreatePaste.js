@@ -17,7 +17,7 @@ const CreatePaste = () => {
     setPasteLink("");
 
     try {
-      const res = await fetch("https://pastebin-backend-0rbg.onrender.com/api/paste", {
+      const res = await fetch("https://pastebin-web-application.onrender.com/api/paste", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
