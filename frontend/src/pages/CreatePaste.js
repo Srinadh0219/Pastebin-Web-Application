@@ -1,54 +1,53 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const CreatePaste = () => {
   const [content, setContent] = useState("");
-  const [expiresIn, setExpiresIn] = useState("");
   const [maxViews, setMaxViews] = useState("");
-  const [pasteId, setPasteId] = useState(null);
+  const [expiryMinutes, setExpiryMinutes] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [pasteLink, setPasteLink] = useState("");
 
-  const handleCreatePaste = async () => {
-    if (!content) {
-      setError("Paste content cannot be empty");
+  const handleCreate = async () => {
+    if (!content.trim()) {
+      alert("Paste content required");
       return;
     }
+
     setLoading(true);
-    setError("");
+    setPasteLink("");
 
     try {
       const res = await fetch("http://localhost:5000/api/paste", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           content,
-          expiresIn: Number(expiresIn) || 0,
-          maxViews: Number(maxViews) || 0,
+          maxViews: maxViews ? Number(maxViews) : null,
+          expiryMinutes: expiryMinutes ? Number(expiryMinutes) : null,
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Failed to create paste");
-      } else {
-        setPasteId(data._id); // store paste ID
-        setContent(""); // reset input
-        setExpiresIn("");
-        setMaxViews("");
+        throw new Error(data.error || "Failed to create paste");
       }
-    } catch (err) {
-      setError("Failed to fetch paste");
-      console.error(err);
-    }
 
-    setLoading(false);
+      // ✅ CREATE LINK
+      const link = `${window.location.origin}/paste/${data._id}`;
+      setPasteLink(link);
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const copyLink = () => {
-    const link = `http://localhost:3000/paste/${pasteId}`;
-    navigator.clipboard.writeText(link);
-    alert("Link copied to clipboard!");
+    navigator.clipboard.writeText(pasteLink);
+    alert("Link copied!");
   };
 
   return (
@@ -56,43 +55,36 @@ const CreatePaste = () => {
       <h2>Create Paste</h2>
 
       <textarea
-        placeholder="Write your paste here..."
+        placeholder="Enter your paste content..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        rows={8}
       />
 
-      <div className="input-group">
+      <div className="row">
         <input
           type="number"
-          placeholder="Expires in seconds (optional)"
-          value={expiresIn}
-          onChange={(e) => setExpiresIn(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Max views (optional)"
+          placeholder="Max Views"
           value={maxViews}
           onChange={(e) => setMaxViews(e.target.value)}
         />
+        <input
+          type="number"
+          placeholder="Expiry (minutes)"
+          value={expiryMinutes}
+          onChange={(e) => setExpiryMinutes(e.target.value)}
+        />
       </div>
 
-      <button onClick={handleCreatePaste} disabled={loading}>
+      <button onClick={handleCreate} disabled={loading}>
         {loading ? "Creating..." : "Create Paste"}
       </button>
 
-      {error && <p className="error">{error}</p>}
-
-      {pasteId && (
+      {/* ✅ LINK SECTION */}
+      {pasteLink && (
         <div className="link-box">
-          <input
-            type="text"
-            readOnly
-            value={`http://localhost:3000/paste/${pasteId}`}
-            onClick={(e) => e.target.select()}
-          />
-          <button className="copy-btn" onClick={copyLink}>
-            Copy
-          </button>
+          <input value={pasteLink} readOnly />
+          <button onClick={copyLink}>Copy</button>
         </div>
       )}
     </div>

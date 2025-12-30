@@ -25,14 +25,14 @@ const ViewPaste = () => {
 
   return (
     <div className="container">
-      <h2>View Paste</h2>
+      <h2>View Link</h2>
 
       {error && <p className="error">{error}</p>}
 
       {paste && (
         <div className="paste-box">
           <textarea readOnly value={paste.content} />
-          <p>Views: {paste.views}</p>
+          <h2>Views: {paste.views}</h2>
         </div>
       )}
     </div>

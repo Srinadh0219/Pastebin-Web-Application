@@ -1,119 +1,114 @@
-/* Container and headings remain the same */
+/* Page background */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+/* Main container */
 .container {
-  max-width: 700px;
+  max-width: 750px;
   margin: 50px auto;
-  background: #fff;
+  background: #020617;
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
 }
 
-h2 {
+/* Heading */
+.container h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 25px;
+  font-size: 28px;
 }
 
+/* Paste textarea */
 textarea {
   width: 100%;
-  height: 180px;
-  /* increased height */
-  padding: 14px;
-  /* increased padding */
+  padding: 15px;
+  font-size: 16px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: none;
+  outline: none;
   resize: vertical;
-  font-size: 16px;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  margin-bottom: 20px;
 }
 
-/* Input group for time and max views */
-.input-group {
+/* Max views + Expiry row */
+.row {
   display: flex;
-  gap: 15px;
-  margin: 15px 0;
+  gap: 20px;
+  margin-bottom: 25px;
 }
 
-input[type="number"] {
+/* Inputs */
+.row input {
   flex: 1;
-  padding: 12px;
-  /* increased size */
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  padding: 14px;
   font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
 }
 
 /* Create button */
 button {
-  display: block;
   width: 100%;
   padding: 16px;
-  /* increased size */
-  margin-top: 20px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
   font-size: 18px;
-  /* increased font size */
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  transition: background 0.3s ease;
+  background: #2563eb;
+  color: white;
+  transition: background 0.3s;
 }
 
 button:hover {
-  background: #45a049;
+  background: #1d4ed8;
 }
 
-/* Error message */
-.error {
-  color: red;
-  margin-top: 10px;
-  text-align: center;
+button:disabled {
+  background: #475569;
+  cursor: not-allowed;
 }
 
-/* Link box with copy button */
+/* Link + Copy box */
 .link-box {
   display: flex;
-  margin-top: 20px;
+  align-items: center;
   gap: 10px;
+  margin-top: 25px;
 }
 
+/* Link input (WIDER) */
 .link-box input {
-  flex: 3;
-  /* make input wider */
+  flex: 1;
   padding: 14px;
-  /* increased padding */
-  border-radius: 8px;
-  border: 1px solid #ccc;
   font-size: 16px;
-}
-
-.copy-btn {
-  flex:0 0 100px;
-  /* smaller button width */
-  padding: 6px;
-  /* smaller button height */
-  background: #2196F3;
-  color: white;
+  border-radius: 8px;
   border: none;
-  height: 30px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+}
+
+/* Copy button (SMALLER) */
+.link-box button {
+  width: 90px;
+  padding: 12px;
   font-size: 14px;
-  transition: background 0.3s ease;
+  background: #16a34a;
 }
 
-.copy-btn:hover {
-  background: #0b7dda;
-}
-
-/* Paste box for viewing content */
-.paste-box textarea {
-  width: 100%;
-  height: 220px;
-  /* increased height */
-  padding: 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  resize: none;
+.link-box button:hover {
+  background: #15803d;
 }
