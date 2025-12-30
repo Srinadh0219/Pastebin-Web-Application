@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://pastebin-backend-0rbg.onrender.com/api"
+  baseURL: "https://pastebin-web-application.onrender.com/api"
 });
