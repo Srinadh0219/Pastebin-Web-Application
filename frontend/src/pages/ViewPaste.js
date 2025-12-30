@@ -9,7 +9,7 @@ const ViewPaste = () => {
   useEffect(() => {
     const fetchPaste = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/paste/${id}`);
+        const res = await fetch(`https://pastebin-backend-0rbg.onrender.com/${id}`);
         const data = await res.json();
         if (!res.ok) {
           setError(data.error || "Paste not found");
