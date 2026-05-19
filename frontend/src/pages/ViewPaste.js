@@ -1,0 +1,43 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+const ViewPaste = () => {
+  const { id } = useParams();
+  const [paste, setPaste] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchPaste = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/paste/${id}`);
+        const data = await res.json();
+        if (!res.ok) {
+          setError(data.error || "Paste not found");
+        } else {
+          setPaste(data);
+        }
+      } catch (err) {
+        setError("Failed to fetch paste");
+      }
+    };
+    fetchPaste();
+  }, [id]);
+
+  return (
+    <div className="container">
+      <div className="brand">Srinadh</div>
+      <h2>Secure Paste View</h2>
+
+      {error && <p className="error">{error}</p>}
+
+      {paste && (
+        <div className="paste-box">
+          <textarea readOnly value={paste.content} />
+          <h2>Views: {paste.views}</h2>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ViewPaste;
